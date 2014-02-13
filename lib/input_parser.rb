@@ -2,9 +2,7 @@ require 'date_parser'
 
 module InputParser
   def self.parse(input)
-    unless is_valid?(input)
-      fail ArgumentError, 'Invalid input'
-    end
+    valid?(input) || fail(ArgumentError, 'Invalid input')
 
     {
       customer_type: @last[:customer_type],
@@ -12,22 +10,22 @@ module InputParser
     }
   end
 
-  def self.is_valid?(input) 
+  def self.valid?(input)
     @last = regexp.match(input)
 
-    return !@last.nil?
+    !@last.nil?
   end
 
-  private 
+  private
 
   def self.regexp
     @regexp ||= %r{
-      \A    # Start of the input
-      (?<customer_type>\w+)   # Customer type
+      \A                    # Start of the input
+      (?<customer_type>\w+) # Customer type
       :
       \s+
-      (?<dates>\w+.*)   # Date 
-      \z # End of the input
+      (?<dates>\w+.*)       # Date
+      \z                    # End of the input
     }x
   end
 
