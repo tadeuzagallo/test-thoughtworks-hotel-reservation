@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby 
+#!/usr/bin/env ruby
 
 require_relative './lib/parsers/input_parser'
 require_relative './lib/helpers/hotel_helper'
@@ -11,7 +11,7 @@ ARGF.each do |line|
   begin
     input = InputParser.parse(line)
     cheapest = HotelHelper.find_cheapest_hotel(input[:customer_type],
-                                            input[:dates])
+                                               input[:dates])
     puts line
     puts "Cheapest hotel: #{ cheapest.name }"
     puts
