@@ -28,6 +28,32 @@ describe Hotel do
       .add_price(regular_customer, false, regular_week_value)
   end
 
+  context '#add_price' do
+    it 'adds a price' do
+      h = Hotel.new
+      expect {
+        h.add_price(regular_customer, true, regular_weekend_value)
+      }.to change { h.send(:prices).size }.by(1)
+
+      expect {
+        h.add_price(regular_customer, false, regular_week_value)
+      }.to change { h.send(:prices)[regular_customer].size }.by(1)
+    end
+
+    it 'updates a price' do
+      h = Hotel.new
+      h.add_price(regular_customer, true, regular_weekend_value)
+
+      new_value = 132
+
+      expect {
+        h.add_price(regular_customer, true, new_value)
+      }.to_not change { h.send(:prices).size }
+
+      h.price(regular_customer, sunday).should == new_value
+    end
+  end
+
   context '#price' do
     it 'finds regular week price' do
       hotel.price(regular_customer, monday).should == regular_week_value
