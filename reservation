@@ -6,6 +6,8 @@ require_relative './lib/seeds/hotels'
 require_relative './lib/seeds/customer_types'
 
 ARGF.each do |line|
+  next if line.strip.empty?
+
   begin
     print line
     input = InputParser.parse(line)
