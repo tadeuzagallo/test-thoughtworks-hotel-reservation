@@ -1,14 +1,14 @@
 require 'spec_helper'
-require 'reservation_helper'
+require 'hotel_helper'
 require 'hotel'
 
-module ReservationHelper 
+module HotelHelper 
   def self.clear
     @hotels = []
   end
 end
 
-describe ReservationHelper do
+describe HotelHelper do
   let (:regular_customer) { :regular }
   let (:rewards_customer) { :rewards }
 
@@ -37,7 +37,7 @@ describe ReservationHelper do
     end
   end
 
-  before { ReservationHelper.clear }
+  before { HotelHelper.clear }
 
   it { should respond_to(:find_cheapest_hotel) }
   it { should respond_to(:register_hotel) }
@@ -45,33 +45,33 @@ describe ReservationHelper do
   context '#register_hotel' do
     it 'adds a new hotel' do
       expect {
-        ReservationHelper.register_hotel(hotel)
-      }.to change { ReservationHelper.send(:hotels).size }.by(1)
+        HotelHelper.register_hotel(hotel)
+      }.to change { HotelHelper.send(:hotels).size }.by(1)
     end
 
     it 'does not add the same hotel twice' do
-      ReservationHelper.register_hotel(hotel)
+      HotelHelper.register_hotel(hotel)
       expect {
-        ReservationHelper.register_hotel(hotel)
-      }.not_to change { ReservationHelper.send(:hotels).size }
+        HotelHelper.register_hotel(hotel)
+      }.not_to change { HotelHelper.send(:hotels).size }
     end
   end
 
   context '#find_cheapest_hotel' do
     it 'returns a hotel' do
-      ReservationHelper.register_hotel(hotel)
-      ReservationHelper.find_cheapest_hotel(regular_customer, [thursday]).should be_a(Hotel)
+      HotelHelper.register_hotel(hotel)
+      HotelHelper.find_cheapest_hotel(regular_customer, [thursday]).should be_a(Hotel)
     end
 
     it 'returns the only hotel' do
-      ReservationHelper.register_hotel(expensive_hotel)
-      ReservationHelper.find_cheapest_hotel(regular_customer, [thursday]).should == expensive_hotel
+      HotelHelper.register_hotel(expensive_hotel)
+      HotelHelper.find_cheapest_hotel(regular_customer, [thursday]).should == expensive_hotel
     end
 
     it 'returns the cheapest hotel' do
-      ReservationHelper.register_hotel(hotel)
+      HotelHelper.register_hotel(hotel)
         .register_hotel(expensive_hotel)
-      ReservationHelper.find_cheapest_hotel(regular_customer, [thursday]).should == hotel
+      HotelHelper.find_cheapest_hotel(regular_customer, [thursday]).should == hotel
     end
   end
 end

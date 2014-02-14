@@ -1,6 +1,6 @@
 require_relative './hotel'
 
-module ReservationHelper
+module HotelHelper
   def self.find_cheapest_hotel(customer_type, dates)
     min = nil
     cheapest_hotel = nil

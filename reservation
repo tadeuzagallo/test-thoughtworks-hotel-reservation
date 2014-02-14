@@ -1,14 +1,17 @@
 #!/usr/bin/env ruby 
 
 require_relative './lib/input_parser'
-require_relative './lib/reservation_helper'
+require_relative './lib/hotel_helper'
+require_relative './lib/seeds/hotels'
+require_relative './lib/seeds/customer_types'
 
 ARGF.each do |line|
   begin
+    print line
     input = InputParser.parse(line)
-    p ReservationHelper.find_cheapest_hotel(input[:customer_type],
+    p HotelHelper.find_cheapest_hotel(input[:customer_type],
                                             input[:days]).name
   rescue ArgumentError => e
-    p e.message
+    p e.backtrace
   end
 end
