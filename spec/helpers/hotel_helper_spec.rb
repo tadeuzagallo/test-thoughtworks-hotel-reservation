@@ -19,10 +19,10 @@ describe HotelHelper do
     Hotel.new.tap do |h|
       h.name = "Hotel #1"
       h.rating = 3
-      h.add_price(regular_customer, false, 100)
-        .add_price(regular_customer, true, 60)
-        .add_price(rewards_customer, false, 150)
-        .add_price(rewards_customer, true, 100)
+      h.set_price(regular_customer, false, 100)
+        .set_price(regular_customer, true, 60)
+        .set_price(rewards_customer, false, 150)
+        .set_price(rewards_customer, true, 100)
     end
   end
 
@@ -30,10 +30,10 @@ describe HotelHelper do
     Hotel.new.tap do |h|
       h.name = "Hotel #2"
       h.rating = 3
-      h.add_price(regular_customer, false, 200)
-        .add_price(regular_customer, true, 160)
-        .add_price(rewards_customer, false, 150)
-        .add_price(rewards_customer, true, 110)
+      h.set_price(regular_customer, false, 200)
+        .set_price(regular_customer, true, 160)
+        .set_price(rewards_customer, false, 150)
+        .set_price(rewards_customer, true, 110)
     end
   end
 

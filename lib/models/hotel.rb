@@ -1,7 +1,7 @@
 class Hotel
   attr_accessor :name, :rating
 
-  def add_price(customer_type, weekend, value)
+  def set_price(customer_type, weekend, value)
     prices[customer_type] ||= {}
 
     prices[customer_type][weekend] = value

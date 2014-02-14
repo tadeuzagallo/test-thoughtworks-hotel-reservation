@@ -2,15 +2,7 @@ require_relative './date_parser'
 require_relative '../helpers/customer_helper'
 
 module InputParser
-  INPUT_REGEXP = %r{
-      \A                    # Start of the input
-      (?<customer_type>\w+) # Customer type
-      :
-      \s+
-      (?<dates>\w+.*)       # Date
-      \n?
-      \z                    # End of the input
-    }x
+  INPUT_REGEXP = /\A(?<customer_type>\w+):\s+(?<dates>\w+.*)\n?\z/
 
   def self.parse(input)
     valid?(input) || fail(ArgumentError, 'Invalid input')

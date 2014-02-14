@@ -3,26 +3,18 @@ require_relative '../models/hotel'
 module HotelHelper
   def self.find_cheapest_hotel(customer_type, dates)
     min = nil
-    cheapest_hotel = nil
+    cheapest = nil
 
     hotels.each_with_index do |hotel, index|
-      total =
-        dates.map do |date|
-          hotel.price(customer_type, date)
-        end.reduce(&:+)
+      total = dates.map { |date| hotel.price(customer_type, date) }.reduce(&:+)
 
-      if
-        min.nil? ||
-        total < min ||
-        total == min &&
-        hotel.rating > cheapest_hotel.rating
-      then
+      if min.nil? || total < min || total == min && hotel.better?(cheapest)
         min = total
-        cheapest_hotel = hotel
+        cheapest = hotel
       end
     end
 
-    cheapest_hotel
+    cheapest
   end
 
   def self.register_hotel(hotel)

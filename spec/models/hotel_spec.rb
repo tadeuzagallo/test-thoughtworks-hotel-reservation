@@ -18,17 +18,17 @@ describe Hotel do
 
   let(:full_hotel) do
     Hotel.new.tap do |hotel|
-      hotel.add_price(rewards_customer, true, rewards_weekend_value)
-        .add_price(rewards_customer, false, regular_week_value)
-        .add_price(regular_customer, true, regular_weekend_value)
-        .add_price(regular_customer, false, regular_week_value)
+      hotel.set_price(rewards_customer, true, rewards_weekend_value)
+        .set_price(rewards_customer, false, regular_week_value)
+        .set_price(regular_customer, true, regular_weekend_value)
+        .set_price(regular_customer, false, regular_week_value)
     end
   end
 
   it { should respond_to(:name) }
   it { should respond_to(:rating) }
   it { should respond_to(:price) }
-  it { should respond_to(:add_price) }
+  it { should respond_to(:set_price) }
   it { should respond_to(:better?) }
 
   context '#better?' do
@@ -54,24 +54,24 @@ describe Hotel do
     end
   end
 
-  context '#add_price' do
-    it 'adds a price' do
+  context '#set_price' do
+    it 'adds a new price' do
       expect {
-        hotel.add_price(regular_customer, true, regular_weekend_value)
+        hotel.set_price(regular_customer, true, regular_weekend_value)
       }.to change { hotel.send(:prices).size }.by(1)
 
       expect {
-        hotel.add_price(regular_customer, false, regular_week_value)
+        hotel.set_price(regular_customer, false, regular_week_value)
       }.to change { hotel.send(:prices)[regular_customer].size }.by(1)
     end
 
-    it 'updates a price' do
-      hotel.add_price(regular_customer, true, regular_weekend_value)
+    it 'updates an existing price' do
+      hotel.set_price(regular_customer, true, regular_weekend_value)
 
       new_value = 132
 
       expect {
-        hotel.add_price(regular_customer, true, new_value)
+        hotel.set_price(regular_customer, true, new_value)
       }.to_not change { hotel.send(:prices).size }
 
       hotel.price(regular_customer, sunday).should == new_value
