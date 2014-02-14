@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 require_relative '../../lib/models/hotel'
 require_relative '../../lib/helpers/hotel_helper'
 
-module HotelHelper 
+class HotelHelper 
   def self.clear
     @hotels = []
   end
@@ -39,8 +39,16 @@ describe HotelHelper do
 
   before { HotelHelper.clear }
 
-  it { should respond_to(:find_cheapest_hotel) }
-  it { should respond_to(:register_hotel) }
+  subject { HotelHelper.new(hotel, regular_customer, [thursday]) }
+
+  it { should respond_to(:hotel) }
+  it { should respond_to(:customer_type) }
+  it { should respond_to(:dates) }
+  it { should respond_to(:total_price) }
+
+
+  it { HotelHelper.should respond_to(:find_cheapest_hotel) }
+  it { HotelHelper.should respond_to(:register_hotel) }
 
   context '#register_hotel' do
     it 'adds a new hotel' do
