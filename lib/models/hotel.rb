@@ -8,8 +8,12 @@ class Hotel
     self
   end
 
-  def price(customer_type, date)
+  def price_for_date(customer_type, date)
     prices[customer_type][date.saturday? || date.sunday?]
+  end
+
+  def price_for_dates(customer_type, dates)
+    dates.map { |date| price_for_date(customer_type, date) }.reduce(&:+)
   end
 
   def better?(other)

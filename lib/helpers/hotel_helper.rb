@@ -6,7 +6,7 @@ module HotelHelper
     cheapest = nil
 
     hotels.each_with_index do |hotel, index|
-      total = dates.map { |date| hotel.price(customer_type, date) }.reduce(&:+)
+      total = hotel.price_for_dates(customer_type, dates)
 
       if min.nil? || total < min || total == min && hotel.better?(cheapest)
         min = total
