@@ -20,14 +20,11 @@ module ReservationHelper
   end
 
   def self.register_hotel(hotel)
-    hotels << hotel
+    hotels.include?(hotel) || hotels << hotel
+    self
   end
 
   private
-
-  def self.hotels=(hotels)
-    @hotels = hotels
-  end
 
   def self.hotels
     @hotels ||= []
