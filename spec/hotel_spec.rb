@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'hotel'
 
 describe Hotel do

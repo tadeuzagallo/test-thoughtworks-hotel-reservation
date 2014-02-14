@@ -1,6 +1,7 @@
+require 'spec_helper'
 require 'input_parser'
 
-describe InputParser, focus: true do
+describe InputParser do
   it { should respond_to(:parse) }
   it { should respond_to(:valid?) }
 
