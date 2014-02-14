@@ -2,15 +2,8 @@ require 'spec_helper'
 require 'hotel'
 
 describe Hotel do
-  it { should respond_to(:name) }
-  it { should respond_to(:rating) }
-  it { should respond_to(:price) }
-  it { should respond_to(:add_price) }
-
-  let (:hotel) { Hotel.new }
-
+  let (:regular_customer) { :regular }
   let (:rewards_customer) { :rewards }
-  let (:regular_customer) { :rewards }
 
   let (:regular_week_value) { 100 }
   let (:regular_weekend_value) { 60 }
@@ -21,54 +14,61 @@ describe Hotel do
   let (:monday) { Time.new(2014, 02, 10) }
   let (:sunday) { Time.new(2014, 02, 9) }
 
-  before(:all) do
-    hotel.add_price(rewards_customer, true, rewards_weekend_value)
-      .add_price(rewards_customer, false, regular_week_value)
-      .add_price(regular_customer, true, regular_weekend_value)
-      .add_price(regular_customer, false, regular_week_value)
+  let(:hotel) { Hotel.new }
+
+  let(:full_hotel) do
+    Hotel.new.tap do |hotel|
+      hotel.add_price(rewards_customer, true, rewards_weekend_value)
+        .add_price(rewards_customer, false, regular_week_value)
+        .add_price(regular_customer, true, regular_weekend_value)
+        .add_price(regular_customer, false, regular_week_value)
+    end
   end
+
+  it { should respond_to(:name) }
+  it { should respond_to(:rating) }
+  it { should respond_to(:price) }
+  it { should respond_to(:add_price) }
 
   context '#add_price' do
     it 'adds a price' do
-      h = Hotel.new
       expect {
-        h.add_price(regular_customer, true, regular_weekend_value)
-      }.to change { h.send(:prices).size }.by(1)
+        hotel.add_price(regular_customer, true, regular_weekend_value)
+      }.to change { hotel.send(:prices).size }.by(1)
 
       expect {
-        h.add_price(regular_customer, false, regular_week_value)
-      }.to change { h.send(:prices)[regular_customer].size }.by(1)
+        hotel.add_price(regular_customer, false, regular_week_value)
+      }.to change { hotel.send(:prices)[regular_customer].size }.by(1)
     end
 
     it 'updates a price' do
-      h = Hotel.new
-      h.add_price(regular_customer, true, regular_weekend_value)
+      hotel.add_price(regular_customer, true, regular_weekend_value)
 
       new_value = 132
 
       expect {
-        h.add_price(regular_customer, true, new_value)
-      }.to_not change { h.send(:prices).size }
+        hotel.add_price(regular_customer, true, new_value)
+      }.to_not change { hotel.send(:prices).size }
 
-      h.price(regular_customer, sunday).should == new_value
+      hotel.price(regular_customer, sunday).should == new_value
     end
   end
 
   context '#price' do
     it 'finds regular week price' do
-      hotel.price(regular_customer, monday).should == regular_week_value
+      full_hotel.price(regular_customer, monday).should == regular_week_value
     end
 
     it 'finds regular weekend price' do
-      hotel.price(regular_customer, sunday).should == regular_weekend_value
+      full_hotel.price(regular_customer, sunday).should == regular_weekend_value
     end
 
     it 'finds rewards weekend price' do
-      hotel.price(rewards_customer, monday).should == rewards_week_value
+      full_hotel.price(rewards_customer, monday).should == rewards_week_value
     end
 
     it 'finds rewards weekend price' do
-      hotel.price(rewards_customer, sunday).should == rewards_weekend_value
+      full_hotel.price(rewards_customer, sunday).should == rewards_weekend_value
     end
   end
 end
