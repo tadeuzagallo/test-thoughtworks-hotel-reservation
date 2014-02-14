@@ -25,6 +25,7 @@ module InputParser
       :
       \s+
       (?<dates>\w+.*)       # Date
+      \n?
       \z                    # End of the input
     }x
   end
