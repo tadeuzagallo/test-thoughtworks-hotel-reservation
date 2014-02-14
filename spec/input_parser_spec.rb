@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'input_parser'
+require 'customer_helper'
 
 describe InputParser do
   it { should respond_to(:parse) }
@@ -7,6 +8,12 @@ describe InputParser do
 
   let (:valid_input) { 'Rewards: 26Mar2009(thur)' }
   let (:input_without_date) { 'Rewards: ' }
+  let (:input_invalid_type) { 'Reward: 26Mar2009(thur)' }
+
+  before(:all) do
+    CustomerHelper.register_type('Regular')
+    CustomerHelper.register_type('Rewards')
+  end
 
   context '#valid?' do
     it 'returs true for valid input' do
@@ -21,7 +28,7 @@ describe InputParser do
       InputParser.valid?(input_without_date).should be_false
     end
 
-    xit 'returns false if customer type is invalid' do
+    it 'returns false if customer type is invalid' do
       InputParser.valid?(input_invalid_type).should be_false
     end
   end
@@ -35,8 +42,8 @@ describe InputParser do
       InputParser.parse(valid_input).should be_a(Hash)
     end
 
-    it 'returns customer type' do
-      InputParser.parse(valid_input).should include(customer_type: 'Rewards')
+    it 'returns normalized customer type' do
+      InputParser.parse(valid_input).should include(customer_type: :rewards)
     end
 
     it 'returns an array of dates' do

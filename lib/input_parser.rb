@@ -1,11 +1,12 @@
 require_relative './date_parser'
+require_relative './customer_helper'
 
 module InputParser
   def self.parse(input)
     valid?(input) || fail(ArgumentError, 'Invalid input')
 
     {
-      customer_type: @last[:customer_type],
+      customer_type: parsed_type,
       dates: parsed_dates
     }
   end
@@ -13,7 +14,7 @@ module InputParser
   def self.valid?(input)
     @last = regexp.match(input)
 
-    !@last.nil?
+    !@last.nil? && CustomerHelper.valid_type?(@last[:customer_type])
   end
 
   private
@@ -28,6 +29,10 @@ module InputParser
       \n?
       \z                    # End of the input
     }x
+  end
+
+  def self.parsed_type
+    CustomerHelper.normalize_type(@last[:customer_type])
   end
 
   def self.parsed_dates
