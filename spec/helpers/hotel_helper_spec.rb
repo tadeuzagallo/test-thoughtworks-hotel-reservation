@@ -1,6 +1,6 @@
-require 'spec_helper'
-require 'hotel_helper'
-require 'hotel'
+require_relative '../spec_helper'
+require_relative '../../lib/models/hotel'
+require_relative '../../lib/helpers/hotel_helper'
 
 module HotelHelper 
   def self.clear

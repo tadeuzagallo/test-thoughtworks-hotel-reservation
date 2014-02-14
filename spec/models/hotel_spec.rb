@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'hotel'
+require_relative '../spec_helper'
+require_relative '../../lib/models/hotel'
 
 describe Hotel do
   let (:regular_customer) { :regular }

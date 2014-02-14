@@ -1,5 +1,5 @@
 require_relative './date_parser'
-require_relative './customer_helper'
+require_relative '../helpers/customer_helper'
 
 module InputParser
   INPUT_REGEXP = %r{

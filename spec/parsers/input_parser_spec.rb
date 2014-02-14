@@ -1,6 +1,6 @@
-require 'spec_helper'
-require 'input_parser'
-require 'customer_helper'
+require_relative '../spec_helper'
+require_relative '../../lib/parsers/input_parser'
+require_relative '../../lib/helpers/customer_helper'
 
 describe InputParser do
   it { should respond_to(:parse) }

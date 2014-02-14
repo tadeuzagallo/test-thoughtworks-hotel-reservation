@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'date_parser'
+require_relative '../spec_helper'
+require_relative '../../lib/parsers/date_parser'
 
 describe DateParser do
   it { should respond_to(:parse) }

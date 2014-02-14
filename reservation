@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby 
 
-require_relative './lib/input_parser'
-require_relative './lib/hotel_helper'
+require_relative './lib/parsers/input_parser'
+require_relative './lib/helpers/hotel_helper'
 require_relative './lib/seeds/hotels'
 require_relative './lib/seeds/customer_types'
 

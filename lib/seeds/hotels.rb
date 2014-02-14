@@ -2,7 +2,8 @@
 #● Bridgewood with a rating of 4 has weekday rates as 160$ for regular customer and 110$ for rewards customer. The weekend rates are 60$ for regular customer and 50$ for a rewards customer.
 #● Ridgewood with a rating of 5 has weekday rates as 220$ for regular customer and 100$ for rewards customer. The weekend rates are 150$ for regular customer and 40$ for a rewards customer.
 
-require_relative '../hotel_helper'
+require_relative '../models/hotel'
+require_relative '../helpers/hotel_helper'
 
 HotelHelper.register_hotel(Hotel.new.tap do |h|
   h.name = 'Lakewood'

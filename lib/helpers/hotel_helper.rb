@@ -1,4 +1,4 @@
-require_relative './hotel'
+require_relative '../models/hotel'
 
 module HotelHelper
   def self.find_cheapest_hotel(customer_type, dates)

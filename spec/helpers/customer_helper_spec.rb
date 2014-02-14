@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'customer_helper'
+require_relative '../spec_helper'
+require_relative '../../lib/helpers/customer_helper'
 
 describe CustomerHelper do
   it { should respond_to(:normalize_type) }
