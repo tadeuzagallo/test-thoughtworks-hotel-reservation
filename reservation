@@ -9,11 +9,13 @@ ARGF.each do |line|
   next if line.strip.empty?
 
   begin
-    print line
     input = InputParser.parse(line)
-    p HotelHelper.find_cheapest_hotel(input[:customer_type],
-                                            input[:days]).name
+    cheapest = HotelHelper.find_cheapest_hotel(input[:customer_type],
+                                            input[:dates])
+    puts line
+    puts "Cheapest hotel: #{ cheapest.name }"
+    puts
   rescue ArgumentError => e
-    p e.backtrace
+    puts e.backtrace
   end
 end
