@@ -18,6 +18,15 @@ describe DateParser do
     end
 
     it 'parses simple date' do
+      time = DateParser.parse('27Mar2009')
+
+      time.day.should == 27
+      time.month.should == 3
+      time.year.should == 2009
+      time.wday.should == 5
+    end
+
+    it 'parses full date' do
       time = DateParser.parse('27Mar2009(fri)')
 
       time.day.should == 27
