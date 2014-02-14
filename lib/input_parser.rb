@@ -1,4 +1,4 @@
-require 'date_parser'
+require_relative './date_parser'
 
 module InputParser
   def self.parse(input)

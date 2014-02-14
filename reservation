@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby 
+
+require_relative './lib/input_parser'
+require_relative './lib/reservation_helper'
+
+ARGF.each do |line|
+  begin
+    input = InputParser.parse(line)
+    p ReservationHelper.find_cheapest_hotel(input[:customer_type],
+                                            input[:days]).name
+  rescue ArgumentError => e
+    p e.message
+  end
+end
