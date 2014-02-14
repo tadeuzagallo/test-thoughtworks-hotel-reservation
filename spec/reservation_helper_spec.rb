@@ -42,7 +42,7 @@ describe ReservationHelper do
   it { should respond_to(:find_cheapest_hotel) }
   it { should respond_to(:register_hotel) }
 
-  context '#register_hotel', :focus do
+  context '#register_hotel' do
     it 'adds a new hotel' do
       expect {
         ReservationHelper.register_hotel(hotel)
@@ -59,10 +59,12 @@ describe ReservationHelper do
 
   context '#find_cheapest_hotel' do
     it 'returns a hotel' do
+      ReservationHelper.register_hotel(hotel)
       ReservationHelper.find_cheapest_hotel(regular_customer, [thursday]).should be_a(Hotel)
     end
 
     it 'returns the only hotel' do
+      ReservationHelper.register_hotel(expensive_hotel)
       ReservationHelper.find_cheapest_hotel(regular_customer, [thursday]).should == expensive_hotel
     end
 
