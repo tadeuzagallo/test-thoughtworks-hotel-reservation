@@ -6,8 +6,8 @@
 * I added the samples given in the email on the file `./sample_inputs.txt`
 * To run the application just run `./reservation < sample_inputs.txt`
 * To run tests or check the syntax run `bundle install` and then:
-  * `bundle install && rspec spec` to run the tests or
-  * `rubocop ./lib/ ./reservation` for checking the syntax
+    * `rspec spec` to run the tests or
+    * `rubocop ./lib/ ./reservation` for checking the syntax
 
 ## About the solution
 
@@ -24,3 +24,7 @@ sample inputs.
 
 I followed "Duck typing", so there is not much type testing. Also followed
 [The Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) and used [Rubocop](https://github.com/bbatsov/rubocop) to ensure it was compliant.
+
+I'm sending it with the `.git` folder inside, so the repository is available for
+checking the steps that were taken. All the work is currently on the master
+branch.
