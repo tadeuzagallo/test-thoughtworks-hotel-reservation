@@ -29,6 +29,30 @@ describe Hotel do
   it { should respond_to(:rating) }
   it { should respond_to(:price) }
   it { should respond_to(:add_price) }
+  it { should respond_to(:better?) }
+
+  context '#better?' do
+    it 'returns false for worse hotel' do
+      better = hotel.tap { |h| h.rating = 5 }
+      worse = hotel.dup.tap { |h| h.rating = 1 }
+
+      worse.better?(better).should be_false
+    end
+
+    it 'returns false for hotel on with same rating' do
+      hotel_1 = hotel.tap { |h| h.rating = 4 }
+      hotel_2 = hotel.dup.tap { |h| h.rating = 4 }
+
+      hotel_1.better?(hotel_2).should be_false
+    end
+
+    it 'returns true for a better hotel' do
+      better = hotel.tap { |h| h.rating = 5 }
+      worse = hotel.dup.tap { |h| h.rating = 1 }
+
+      better.better?(worse).should be_true
+    end
+  end
 
   context '#add_price' do
     it 'adds a price' do

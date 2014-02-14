@@ -12,6 +12,10 @@ class Hotel
     prices[customer_type][date.saturday? || date.sunday?]
   end
 
+  def better?(other)
+    rating > other.rating
+  end
+
   private
 
   def prices
