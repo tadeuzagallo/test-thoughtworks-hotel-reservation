@@ -11,7 +11,12 @@ module HotelHelper
           hotel.price(customer_type, date)
         end.reduce(&:+)
 
-      if min.nil? || total < min
+      if
+        min.nil? ||
+        total < min ||
+        total == min &&
+        hotel.rating > cheapest_hotel.rating
+      then
         min = total
         cheapest_hotel = hotel
       end

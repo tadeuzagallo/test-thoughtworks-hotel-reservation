@@ -73,5 +73,17 @@ describe HotelHelper do
         .register_hotel(expensive_hotel)
       HotelHelper.find_cheapest_hotel(regular_customer, [thursday]).should == hotel
     end
+
+    it 'returns the best rated on ties' do
+      best_hotel = expensive_hotel.dup.tap do |h|
+        h.name = 'Best Hotel'
+        h.rating = 6
+      end
+
+      HotelHelper.register_hotel(expensive_hotel)
+      HotelHelper.register_hotel(best_hotel)
+
+      HotelHelper.find_cheapest_hotel(regular_customer, [thursday]).should == best_hotel
+    end
   end
 end
